@@ -1,1 +1,41 @@
-gdgbdnnhuhfhmfhkfhfhfmffhdfdfhf,vlnffmgfjj
+Git is a version control system. That means it helps you track changes in files, usually code, and collaborate with others on software development projects.
+
+🧠 Why Use Git?
+
+✅ Track history – Every change is saved so you can go back to previous versions.
+
+✅ Collaboration – Multiple people can work on the same project without overwriting each other’s work.
+
+✅ Branching – You can try out new features or fixes without affecting the main code.
+
+✅ Open-source – It’s free and widely used in the software industry.
+
+🛠️ Basic Concepts
+Term	What it Means
+Repository (repo)	A project tracked by Git (folder with .git inside it)
+Commit	A snapshot of your files at a certain point in time
+Branch	A parallel version of your project
+Merge	Combine branches together
+Clone	Copy a Git repo from somewhere (like GitHub) to your computer
+Push	Send your commits to a remote repo (like GitHub)
+Pull	Fetch and integrate changes from a remote repo
+Staging	Prepare files for committing (git add)
+⚙️ Common Git Commands
+git init                # Start a new Git repository
+git clone <url>         # Copy a remote repo
+git status              # Check what’s changed
+git add <file>          # Stage a file for commit
+git commit -m "message" # Save changes with a message
+git push                # Send changes to remote repo
+git pull                # Get latest changes from remote repo
+git branch              # List or create branches
+git checkout <branch>   # Switch to a branch
+git merge <branch>      # Merge a branch into current one
+
+🌐 Git vs GitHub
+
+Git = The tool that ru
+
+Attach
+Search
+Study
