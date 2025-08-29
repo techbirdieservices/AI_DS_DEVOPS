@@ -1,0 +1,180 @@
+/* File: static/style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Mono", monospace;
+}
+body {
+    background-image: url('ai1.jpg');
+    height: 100svh;
+    background-size: cover;
+    background-position: center;
+}
+.main {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main .image-container {
+    padding: 10px;
+    text-align: center;
+}
+.main .image-container h1 {
+    color: red;
+    font-size: 60px;
+    margin: 40px 0;
+    font-style: italic;
+}
+.main .image-container h1:hover {
+    color: #07cddb;
+}
+.main .image-container h3 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 32px;
+}
+.main .image-container h3:hover {
+    color: red;
+    text-decoration: underline;
+}
+.main .image-container p {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* Input containers */
+.input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: none;
+    box-shadow: none;
+    border: none;
+    margin: 10px 0;
+}
+
+/* Special container for Voice Select */
+.voice-container {
+    width: 45%;
+    background: rgba(7, 205, 219, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(7, 205, 219, 0.5);
+}
+
+/* Carlos speaking text ticker */
+.ticker-wrapper {
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(202, 253, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: box-shadow 0.5s ease;
+}
+#response-text {
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    white-space: nowrap;
+}
+.animate-scroll {
+    animation: ticker 40s linear infinite;
+}
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Glowing when Carlos is talking */
+.talking {
+    box-shadow: 0 0 20px 5px #07cddb;
+    animation: glowing 2s infinite alternate;
+}
+@keyframes glowing {
+    0% { box-shadow: 0 0 10px #07cddb; }
+    100% { box-shadow: 0 0 20px #07cddb; }
+}
+
+/* Typing dots animation */
+@keyframes dots {
+    0% { content: ""; }
+    33% { content: "."; }
+    66% { content: ".."; }
+    100% { content: "..."; }
+}
+.typing::after {
+    content: "";
+    animation: dots 1s steps(3, end) infinite;
+}
+
+/* Round Mic Button */
+.talk {
+    background: rgba(7, 205, 219, 0.8);
+    border: none;
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px #07cddb;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.talk:hover {
+    background: #07cddb;
+    box-shadow: 0 0 20px #07cddb;
+}
+.talk i {
+    font-size: 28px;
+    color: white;
+}
+
+/* Text input and submit */
+#text-command {
+    padding: 10px;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    margin-right: 10px;
+}
+#text-submit {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #07cddb;
+    color: white;
+    cursor: pointer;
+}
+
+/* Voice Select Styling */
+#voice-select {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(7, 205, 219, 0.3);
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    outline: none;
+    text-align: center;
+}
+#voice-select:hover {
+    background: rgba(7, 205, 219, 0.5);
+}
+#voice-select option {
+    background: rgba(7, 205, 219, 0.9);
+    color: black;
+}

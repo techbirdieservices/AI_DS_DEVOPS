@@ -1,0 +1,148 @@
+<!-- File: templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARLOS - Virtual Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <section class="main">
+        <div class="image-container">
+            <h1>C A R L O S</h1>
+            <h3>Command-based Assistant for Responsive Logical Operations</h3>
+            <p>I'm a Virtual Assistant CARLOS, How May I Help You?</p>
+        </div>
+
+        <div class="input ticker-wrapper">
+            <span class="content" id="response-text">Click here to speak...</span>
+        </div>
+
+        <div class="input">
+            <button class="talk" id="mic-button">
+                <i class="fas fa-microphone-alt"></i>
+            </button>
+        </div>
+
+        <div class="input">
+            <input type="text" id="text-command" placeholder="Type your command...">
+            <button id="text-submit">Send</button>
+        </div>
+
+        <div class="input voice-container">
+            <select id="voice-select">
+                <option value="">Default Voice</option>
+            </select>
+        </div>
+    </section>
+
+    <script>
+        const micButton = document.getElementById('mic-button');
+        const responseText = document.getElementById('response-text');
+        const textCommand = document.getElementById('text-command');
+        const textSubmit = document.getElementById('text-submit');
+        const voiceSelect = document.getElementById('voice-select');
+
+        let voices = [];
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            voiceSelect.innerHTML = '<option value="">Default Voice</option>';
+            voices.forEach((voice, index) => {
+                voiceSelect.innerHTML += `<option value="${index}">${voice.name} (${voice.lang})</option>`;
+            });
+        }
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            const selectedIndex = voiceSelect.value;
+            if (selectedIndex !== "") {
+                utterance.voice = voices[selectedIndex];
+            }
+
+            utterance.onstart = () => {
+                const wrapperWidth = document.querySelector('.ticker-wrapper').offsetWidth;
+                const textWidth = responseText.scrollWidth;
+                if (textWidth > wrapperWidth) {
+                    responseText.classList.add('animate-scroll');
+                } else {
+                    responseText.classList.remove('animate-scroll');
+                }
+                document.querySelector('.ticker-wrapper').classList.add('talking');
+            };
+
+            utterance.onend = () => {
+                responseText.classList.remove('animate-scroll');
+                document.querySelector('.ticker-wrapper').classList.remove('talking');
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function processCommand(command) {
+            responseText.textContent = "Processing";
+            responseText.classList.add('typing');
+
+            fetch('/process_command', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({command: command})
+            })
+            .then(response => response.json())
+            .then(data => {
+                const message = data.response;
+                responseText.classList.remove('typing');
+                responseText.textContent = message;
+                speak(message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                responseText.classList.remove('typing');
+                responseText.textContent = "Sorry, I couldn't process your request.";
+            });
+        }
+
+        micButton.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+
+            responseText.textContent = "Listening...";
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                responseText.textContent = "You said: " + transcript;
+                processCommand(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                responseText.classList.remove('typing');
+                responseText.textContent = "Error: " + event.error;
+            };
+
+            recognition.start();
+        });
+
+        textSubmit.addEventListener('click', () => {
+            if (textCommand.value.trim()) {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+                processCommand(textCommand.value.trim());
+                textCommand.value = '';
+            }
+        });
+
+        textCommand.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') textSubmit.click();
+        });
+    </script>
+</body>
+</html>
