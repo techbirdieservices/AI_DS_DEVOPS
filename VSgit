@@ -1,0 +1,131 @@
+✅ Step-by-Step: Integrate Git into VS Code
+🔧 Step 1: Install Git
+
+If Git is not already installed:
+
+Windows:
+Download from https://git-scm.com/download/win
+ and follow the setup.
+
+macOS:
+Run:
+
+brew install git
+
+
+Linux (Debian/Ubuntu):
+
+sudo apt install git
+
+
+✅ Verify the installation:
+
+git --version
+
+⚙️ Step 2: Configure Git (First-Time Setup)
+
+Set your Git username and email:
+
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+💻 Step 3: Open a Project in VS Code
+
+Launch VS Code
+
+Open a folder (project directory) using:
+
+File > Open Folder
+
+
+If it’s already a Git repo (has a .git folder), Git will be automatically enabled in VS Code.
+
+🧱 Step 4: Initialize Git (if not already a repo)
+
+If the folder is not yet a Git repository:
+
+Open the Source Control panel (sidebar icon or Ctrl + Shift + G)
+
+Click "Initialize Repository"
+
+Or run:
+
+git init
+
+
+Now VS Code will show Git options in the Source Control panel.
+
+🔁 Step 5: Use Git Inside VS Code
+
+You can now:
+
+Task	How to do it
+Stage changes	Click the + icon next to files
+Commit changes	Type a message and click the ✓ icon
+Push/pull	Use bottom bar buttons or right-click in Source Control
+View branches	Click the branch name in bottom left
+Switch branches	Use the same branch menu or Command Palette (Ctrl+Shift+P)
+Merge / Rebase	Use terminal or Command Palette
+🌐 Step 6: Connect to GitHub (Optional but Useful)
+📌 Clone a GitHub Repo
+
+Open Command Palette (Ctrl+Shift+P)
+
+Run:
+
+Git: Clone
+
+
+Paste the GitHub repo URL
+
+Select folder to save the project
+
+VS Code will prompt to open it
+
+🔐 Set Up GitHub Authentication
+
+When pushing for the first time:
+
+VS Code will prompt for GitHub authentication
+
+Sign in via browser or token
+
+It will remember your credentials (if Git Credential Manager is enabled)
+
+🚀 Bonus: Use Git from VS Code Terminal
+
+Open integrated terminal:
+
+Ctrl + `
+
+
+You can run any Git commands like:
+
+git status
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+🌟 Optional: Install GitLens for Pro Git Tools
+
+GitLens adds:
+
+Line-by-line blame
+
+Visual history
+
+Merge conflict help
+
+File history sidebar
+
+Install it from Extensions view:
+Search for GitLens → Click Install
+
+✅ Summary
+What You Need	Status
+Install Git	✅
+Configure Git	✅
+Open or init repo in VS Code	✅
+Use Git from GUI or terminal	✅
+(Optional) Connect to GitHub	✅
+(Optional) Install GitLens	✅
